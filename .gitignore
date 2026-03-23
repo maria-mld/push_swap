@@ -1,0 +1,6 @@
+*/*.o
+*.o
+**/*.o
+
+push_swap
+obj/
