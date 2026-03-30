@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marmoldo <marmoldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maria <maria@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 15:05:54 by marmoldo          #+#    #+#             */
-/*   Updated: 2026/03/21 21:06:15 by marmoldo         ###   ########.fr       */
+/*   Updated: 2026/03/27 23:37:32 by maria            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	rotate_both(t_stack **a, t_stack **b, t_stack *cheapest_node)
 void	rev_rotate_both(t_stack **a, t_stack **b, t_stack *cheapest_node)
 {
 	while (*a != cheapest_node && *b != cheapest_node->target_node)
-		rrr(a, b); // Крутим оба вниз
+		rrr(a, b);
 	set_current_index(*a);
 	set_current_index(*b);
 }

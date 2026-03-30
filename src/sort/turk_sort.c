@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   turk_sort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marmoldo <marmoldo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maria <maria@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 14:20:22 by marmoldo          #+#    #+#             */
-/*   Updated: 2026/03/21 21:05:28 by marmoldo         ###   ########.fr       */
+/*   Updated: 2026/03/27 23:37:01 by maria            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	turk_sort(t_stack **a, t_stack **b)
 {
-	int len;
+	int	len;
 
 	len = stack_len(*a);
 	if (len-- > 3 && !stack_sorted(*a))

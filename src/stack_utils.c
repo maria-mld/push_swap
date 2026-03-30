@@ -57,6 +57,7 @@ int	stack_len(t_stack *stack)
 	}
 	return (len);
 }
+
 int	stack_sorted(t_stack *stack)
 {
 	while (stack && stack->next)
@@ -67,6 +68,7 @@ int	stack_sorted(t_stack *stack)
 	}
 	return (1);
 }
+
 void	free_split(char **args, int should_free)
 {
 	int	i;

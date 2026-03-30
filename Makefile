@@ -3,6 +3,10 @@ NAME        = push_swap
 CC          = cc
 CFLAGS      = -Wall -Wextra -Werror -Iinc -Ilibft
 
+ifdef SAN
+	CFLAGS += -fsanitize=address
+endif
+
 LIBFT_DIR   = libft/
 LIBFT       = $(LIBFT_DIR)libft.a
 
@@ -29,7 +33,7 @@ all: $(LIBFT) $(NAME)
 
 
 $(LIBFT):
-	@make -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR) $(if $(SAN),SAN=1)
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)

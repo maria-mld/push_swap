@@ -15,16 +15,14 @@
 void	sort_three(t_stack **a)
 {
 	int	first;
-	int second;
-	int third;
+	int	second;
+	int	third;
 
 	if (stack_sorted(*a))
 		return ;
-
 	first = (*a)->value;
 	second = (*a)->next->value;
 	third = (*a)->next->next->value;
-
 	if (first > second && first > third)
 		ra(a);
 	else if (second > first && second > third)
@@ -35,8 +33,8 @@ void	sort_three(t_stack **a)
 
 t_stack	*find_max(t_stack *stack)
 {
-	long long max;
-	t_stack *max_node;
+	long long	max;
+	t_stack		*max_node;
 
 	if (!stack)
 		return (NULL);
@@ -55,9 +53,10 @@ t_stack	*find_max(t_stack *stack)
 
 t_stack	*find_min(t_stack *stack)
 {
-	long min;
-	t_stack *min_node = NULL;
+	long long	min;
+	t_stack		*min_node;
 
+	min_node = NULL;
 	if (!stack)
 		return (NULL);
 	min = 2147483648;

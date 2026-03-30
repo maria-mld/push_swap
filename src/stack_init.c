@@ -79,8 +79,8 @@ void	free_errors(t_stack **a)
 
 void	init_stack_a(t_stack **a, char **argv, int should_free)
 {
-	long n;
-	int i;
+	long	n;
+	int		i;
 
 	i = 0;
 	while (argv[i])

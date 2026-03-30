@@ -1,32 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_a_to_b.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marmoldo <marmoldo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/27 22:45:37 by marmoldo          #+#    #+#             */
+/*   Updated: 2026/03/27 22:45:37 by marmoldo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../push_swap.h"
-
-
-void	set_current_index(t_stack *stack)
-{
-	int i;
-	int median;
-
-	if (!stack)
-		return ;
-	i = 0;
-	median = stack_len(stack) / 2;
-	while (stack)
-	{
-		stack->index = i;
-		if (i <= median)
-			stack->above_median = 1;
-		else
-			stack->above_median = 0;
-		stack = stack->next;
-		i++;
-	}
-}
 
 void	set_target_a(t_stack *a, t_stack *b)
 {
-	t_stack *current_b;
-	t_stack *target_node;
-	long long best_match_index;
+	t_stack		*current_b;
+	t_stack		*target_node;
+	long long	best_match_index;
 
 	while (a)
 	{
@@ -50,39 +40,78 @@ void	set_target_a(t_stack *a, t_stack *b)
 	}
 }
 
+static int	calc_push_cost(int len_a, int len_b, t_stack *a)
+{
+	int	cost_a;
+	int	cost_b;
+
+	if (a->above_median)
+		cost_a = a->index;
+	else
+		cost_a = len_a - a->index;
+	if (a->target_node->above_median)
+		cost_b = a->target_node->index;
+	else
+		cost_b = len_b - a->target_node->index;
+	if ((a->above_median && a->target_node->above_median)
+		|| (!a->above_median && !a->target_node->above_median))
+	{
+		if (cost_a > cost_b)
+			return (cost_a);
+		return (cost_b);
+	}
+	return (cost_a + cost_b);
+}
+
 void	set_push_cost(t_stack *a, t_stack *b)
 {
-	int len_a;
-	int len_b;
-	int cost_a;
-	int cost_b;
+	int	len_a;
+	int	len_b;
 
+	if (!a || !b)
+		return ;
 	len_a = stack_len(a);
 	len_b = stack_len(b);
 	while (a)
 	{
-		if (a->above_median)
-			cost_a = a->index;
-		else
-			cost_a = len_a - (a->index);
-		if (a->target_node->above_median)
-			cost_b = a->target_node->index;
-		else
-			cost_b = len_b - (a->target_node->index);
-		if (a->above_median && a->target_node->above_median)
-			a->push_cost = (cost_a > cost_b) ? cost_a : cost_b;
-		else if (!(a->above_median) && !(a->target_node->above_median))
-			a->push_cost = (cost_a > cost_b) ? cost_a : cost_b;
-		else
-			a->push_cost = cost_a + cost_b;
+		a->push_cost = calc_push_cost(len_a, len_b, a);
 		a = a->next;
 	}
 }
 
+// void	set_push_cost(t_stack *a, t_stack *b)
+// {
+// 	int	len_a;
+// 	int	len_b;
+// 	int	cost_a;
+// 	int	cost_b;
+
+// 	len_a = stack_len(a);
+// 	len_b = stack_len(b);
+// 	while (a)
+// 	{
+// 		if (a->above_median)
+// 			cost_a = a->index;
+// 		else
+// 			cost_a = len_a - (a->index);
+// 		if (a->target_node->above_median)
+// 			cost_b = a->target_node->index;
+// 		else
+// 			cost_b = len_b - (a->target_node->index);
+// 		if (a->above_median && a->target_node->above_median)
+// 			a->push_cost = (cost_a > cost_b) ? cost_a : cost_b;
+// 		else if (!(a->above_median) && !(a->target_node->above_median))
+// 			a->push_cost = (cost_a > cost_b) ? cost_a : cost_b;
+// 		else
+// 			a->push_cost = cost_a + cost_b;
+// 		a = a->next;
+// 	}
+// }
+
 void	set_cheapest(t_stack *stack)
 {
-	long cheapest_value;
-	t_stack *cheapest_node;
+	long long	cheapest_value;
+	t_stack		*cheapest_node;
 
 	if (!stack)
 		return ;
