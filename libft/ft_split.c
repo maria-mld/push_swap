@@ -6,7 +6,7 @@
 /*   By: marmoldo <marmoldo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/16 17:29:50 by marmoldo          #+#    #+#             */
-/*   Updated: 2026/03/21 21:31:31 by marmoldo         ###   ########.fr       */
+/*   Updated: 2026/03/30 16:48:39 by marmoldo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,34 +54,74 @@ static char	*word_dup(const char *start, const char *end)
 	return (word);
 }
 
+static int	fill_word(char **array, const char **s, char c, int i)
+{
+	const char	*start;
+
+	start = *s;
+	while (**s && **s != c)
+		(*s)++;
+	array[i] = word_dup(start, *s);
+	if (!array[i])
+		return (-1);
+	return (0);
+}
+
 char	**ft_split(char const *s, char c)
 {
 	char	**array;
 	int		word_index;
-	const char	*start;
 
-	if (!s || !(array = malloc((count_words(s, c) + 1) * sizeof(char *))))
+	if (!s)
+		return (NULL);
+	array = malloc((count_words(s, c) + 1) * sizeof(char *));
+	if (!array)
 		return (NULL);
 	word_index = 0;
 	while (*s)
 	{
 		if (*s != c)
 		{
-			start = s;
-			while (*s && *s != c)
-				s++;
-			array[word_index] = word_dup(start, s);
-			if (!array[word_index])
+			if (fill_word(array, &s, c, word_index) == -1)
 				return (free_all(array, word_index - 1), NULL);
 			word_index++;
 		}
 		else
 			s++;
 	}
-	return (array[word_index] = NULL, array);
+	array[word_index] = NULL;
+	return (array);
 }
 
+// char	**ft_split(char const *s, char c)
+// {
+// 	char		**array;
+// 	int			word_index;
+// 	const char	*start;
 
+// 	if (!s)
+// 		return (NULL);
+// 	array = malloc((count_words(s, c) + 1) * sizeof(char *));
+// 	if (!array)
+// 		return (NULL);
+// 	word_index = 0;
+// 	while (*s)
+// 	{
+// 		if (*s != c)
+// 		{
+// 			start = s;
+// 			while (*s && *s != c)
+// 				s++;
+// 			array[word_index] = word_dup(start, s);
+// 			if (!array[word_index])
+// 				return (free_all(array, word_index - 1), NULL);
+// 			word_index++;
+// 		}
+// 		else
+// 			s++;
+// 	}
+// 	return (array[word_index] = NULL, array);
+// }
 // char	*world_dup(const char *start, const char *end)
 // {
 // 	char	*word;

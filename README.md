@@ -69,10 +69,13 @@ make
 You can run the program by passing a list of integers as arguments. The numbers can be provided as separate arguments or as a single quoted string.
 
 ```bash
-# Example with separate arguments
 ./push_swap 42 67 12 0 -5
-# Example with a quoted string
+
 ./push_swap "42 67 12 0 -5"
+
+ARG=$(ruby -e "puts (1..500).to_a.shuffle.join(' ')"); ./push_swap $ARG | wc -l
+
+ARG=$(ruby -e "puts (1..500).to_a.shuffle.join(' ')"); ./push_swap $ARG | ./checker_linux $ARG
 ```
 
 ### Technical choices
